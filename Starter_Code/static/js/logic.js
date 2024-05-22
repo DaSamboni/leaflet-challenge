@@ -16,18 +16,18 @@ function makeFeatures(earthquakeData){
         }
 
 //Create datamarkers with size reflecting magnitude and color representing depth
-function makeDatamarkers(feature){
+function makeDatamarker(feature){
     let style = {
         radius: (feature.properties.mag) * 2.5,
-        fillColor: datamarkerColor(feature.geometry.coordinates[2]),
+        fillColor: colorChange(feature.geometry.coordinates[2]),
         color: "black",
         weight: 1,
         opacity: 1,
         fillOpacity: 1
 
     }
-    return L.datamark([feature.geometry.coordinates[1],feature.geometry.coordinates[0]],style);
-};
+    return L.Datamarker([feature.geometry.coordinates[1],feature.geometry.coordinates[0]],style);
+}
 
 //Function to assign colors depending on earthquake depth
 function colorChange(depth){
@@ -42,7 +42,7 @@ function colorChange(depth){
 //Making GeoJSON layer with features array + running onEachFeature function for each piece of data
 let earthquakes = L.geoJSON(earthquakeData, {
     onEachFeature: onEachFeature,
-    pointToLayer: makeDatamarkers
+    pointToLayer: makeDatamarker
 });
 makeMap(earthquakes)
 
@@ -91,4 +91,5 @@ function makeMap(earthquakes) {
     };
     legend.addTo(myMap)
 
+};
 };
