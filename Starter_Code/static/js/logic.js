@@ -18,15 +18,15 @@ function makeFeatures(earthquakeData){
 //Create datamarkers with size reflecting magnitude and color representing depth
 function makeDatamarker(feature){
     let style = {
-        radius: (feature.properties.mag) * 2.5,
-        fillColor: colorChange(feature.geometry.coordinates[2]),
-        color: "black",
-        weight: 1,
-        opacity: 1,
-        fillOpacity: 1
+    radius: (feature.properties.mag) * 2.75,
+    fillColor: colorChange(feature.geometry.coordinates[2]),
+    color: "black",
+    weight: 1,
+    opacity: 1,
+    fillOpacity: 1
 
-    }
-    return L.Datamarker([feature.geometry.coordinates[1],feature.geometry.coordinates[0]],style);
+ }
+ return L.circleMarker([feature.geometry.coordinates[1],feature.geometry.coordinates[0]],style);
 }
 
 //Function to assign colors depending on earthquake depth
@@ -79,6 +79,7 @@ function makeMap(earthquakes) {
     legend.onAdd = function() {
         let div = L.DomUtil.create("div", "info legend")
         let depth = ["<10", "10-25", "25-50", "50-75", "75-90", ">90"];
+        let chooseColor = ["green", "greenyellow", "yellow", "orange", "orangered", "red"];
         let labels = [];
 
         div.innerHTML += "<h3 style='text-align: center'>Depth</h3>"
